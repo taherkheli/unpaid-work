@@ -11,12 +11,12 @@ namespace ConsoleApp
 
     static void Main()
     {
-      context.Database.EnsureCreated();
-      GetMunicipalities("Before Add:");
-      AddMunicipality();
-      GetMunicipalities("After Add:");
-      Console.WriteLine("Press any key...");
-      Console.ReadKey();
+      //context.Database.EnsureCreated();
+      //GetMunicipalities("Before Add:");
+      //AddMunicipality();
+      //GetMunicipalities("After Add:");
+      //Console.WriteLine("Press any key...");
+      //Console.ReadKey();
     }
 
     private static void GetMunicipalities(string text)
