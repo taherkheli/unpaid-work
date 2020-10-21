@@ -1,4 +1,4 @@
-﻿namespace MunicipalityTax.Domain
+﻿namespace Tax.API.Entities
 {
   public enum RuleType
   {
