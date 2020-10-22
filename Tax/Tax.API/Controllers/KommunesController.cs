@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Tax.API.Services;
 
@@ -13,6 +15,11 @@ namespace Tax.API.Controllers
   {
     private readonly IKommuneRepo _kommuneRepo;
 
+    private readonly JsonSerializerOptions options = new JsonSerializerOptions
+    {
+      ReferenceHandling = ReferenceHandling.Preserve
+    };
+
     public  KommunesController(IKommuneRepo kommuneRepo)
     {
       _kommuneRepo = kommuneRepo ?? throw new ArgumentException(nameof(kommuneRepo));
@@ -21,17 +28,11 @@ namespace Tax.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetKommunes()
     {
-      // https://github.com/dotnet/runtime/issues/30938#issuecomment-576923631
-      // TODO: fix this      
-      //var options = new JsonSerializerOptions
-      //{
-      //  ReferenceHandling = ReferenceHandling.Preserve
-      //};
-      //string json = JsonSerializer.Serialize(objectWithLoops, options);
+      //https://github.com/dotnet/runtime/issues/30938#issuecomment-576923631
 
       var kommuneEntities = await _kommuneRepo.GetKommunesAsync();
 
-      return Ok(kommuneEntities);
+      return Ok(JsonSerializer.Serialize(kommuneEntities, options));
     }
 
     [HttpGet]
@@ -43,7 +44,7 @@ namespace Tax.API.Controllers
       if (kommune == null)
         return NotFound();
 
-      return Ok(kommune);
+      return Ok(JsonSerializer.Serialize(kommune, options));
     }
   }
 }
