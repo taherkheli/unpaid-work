@@ -18,7 +18,6 @@
     },
     "Tax.API": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/kommunes",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
