@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Tax.API.Model
+
+namespace Tax.Producer.Model
 {
   public class Kommune
   {
@@ -8,6 +10,6 @@ namespace Tax.API.Model
 
     public string Name { get; set; }
 
-    public int TaxRuleCount { get; set; }
+    public List<Model.TaxRule> TaxRules { get; set; }
   }
 }

@@ -1,4 +1,4 @@
-﻿namespace Tax.API.Entities
+﻿namespace Tax.Producer.Entities
 {
   public enum RuleType
   {

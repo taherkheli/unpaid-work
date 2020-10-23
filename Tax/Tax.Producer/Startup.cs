@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using Tax.API.Contexts;
-using Tax.API.Services;
+using Tax.Producer.Contexts;
+using Tax.Producer.Services;
 
-namespace Tax.API
+namespace Tax.Producer
 {
   public class Startup
   {

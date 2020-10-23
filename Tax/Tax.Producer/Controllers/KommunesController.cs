@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tax.API.Services;
+using Tax.Producer.Services;
 
-namespace Tax.API.Controllers
+namespace Tax.Producer.Controllers
 {
   [ApiController]
   [Route("api/Kommunes")]
@@ -33,8 +33,7 @@ namespace Tax.API.Controllers
         kommunesDto.Add(new Model.Kommune()
         {
           Id = k.Id,
-          Name = k.Name,
-          TaxRuleCount = k.TaxRules.Count
+          Name = k.Name
         });
       }
 
@@ -54,8 +53,7 @@ namespace Tax.API.Controllers
       var kommuneDto = new Model.Kommune
       {
         Id = kommune.Id,
-        Name = kommune.Name,
-        TaxRuleCount = kommune.TaxRules.Count
+        Name = kommune.Name
       };
 
       return Ok(kommuneDto);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tax.API.Entities
+namespace Tax.Producer.Entities
 {
   [Table("Kommune")]
   public class Kommune

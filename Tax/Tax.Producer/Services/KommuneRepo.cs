@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tax.API.Contexts;
-using Tax.API.Entities;
+using Tax.Producer.Contexts;
+using Tax.Producer.Entities;
 
-namespace Tax.API.Services
+namespace Tax.Producer.Services
 {
   public class KommuneRepo : IKommuneRepo
   {

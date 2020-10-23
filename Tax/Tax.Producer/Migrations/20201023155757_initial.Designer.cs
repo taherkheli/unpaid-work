@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Tax.API.Contexts;
+using Tax.Producer.Contexts;
 
-namespace Tax.API.Migrations
+namespace Tax.Producer.Migrations
 {
     [DbContext(typeof(KommuneContext))]
-    [Migration("20201021225845_Initial")]
-    partial class Initial
+    [Migration("20201023155757_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Tax.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Tax.API.Entities.Kommune", b =>
+            modelBuilder.Entity("Tax.Producer.Entities.Kommune", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace Tax.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tax.API.Entities.TaxRule", b =>
+            modelBuilder.Entity("Tax.Producer.Entities.TaxRule", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,9 +120,9 @@ namespace Tax.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tax.API.Entities.TaxRule", b =>
+            modelBuilder.Entity("Tax.Producer.Entities.TaxRule", b =>
                 {
-                    b.HasOne("Tax.API.Entities.Kommune", "Kommune")
+                    b.HasOne("Tax.Producer.Entities.Kommune", "Kommune")
                         .WithMany("TaxRules")
                         .HasForeignKey("KommuneId")
                         .OnDelete(DeleteBehavior.Cascade)

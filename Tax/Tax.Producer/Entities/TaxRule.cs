@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tax.API.Entities
+namespace Tax.Producer.Entities
 {
   [Table("TaxRule")]
   public class TaxRule

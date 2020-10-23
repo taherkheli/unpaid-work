@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using Tax.API.Entities;
+using Tax.Producer.Entities;
 
-namespace Tax.API.Contexts
+namespace Tax.Producer.Contexts
 {
   public class KommuneContext : DbContext
   {

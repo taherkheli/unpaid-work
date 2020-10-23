@@ -11,12 +11,11 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Tax.API": {
+    "Tax.Producer": {
       "commandName": "Project",
       "launchUrl": "api/kommunes",
       "environmentVariables": {

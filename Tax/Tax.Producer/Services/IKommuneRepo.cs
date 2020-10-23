@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tax.API.Entities;
+using Tax.Producer.Entities;
 
-namespace Tax.API.Services
+namespace Tax.Producer.Services
 {
   public interface IKommuneRepo
   {
