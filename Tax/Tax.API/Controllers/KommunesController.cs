@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Tax.API.Services;
 
@@ -15,11 +12,6 @@ namespace Tax.API.Controllers
   {
     private readonly IKommuneRepo _kommuneRepo;
 
-    private readonly JsonSerializerOptions options = new JsonSerializerOptions
-    {
-      ReferenceHandling = ReferenceHandling.Preserve
-    };
-
     public  KommunesController(IKommuneRepo kommuneRepo)
     {
       _kommuneRepo = kommuneRepo ?? throw new ArgumentException(nameof(kommuneRepo));
@@ -28,11 +20,25 @@ namespace Tax.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetKommunes()
     {
-      //https://github.com/dotnet/runtime/issues/30938#issuecomment-576923631
+      var kommunes = await _kommuneRepo.GetKommunesAsync();
 
-      var kommuneEntities = await _kommuneRepo.GetKommunesAsync();
+      if (kommunes == null)
+        return NotFound();
 
-      return Ok(JsonSerializer.Serialize(kommuneEntities, options));
+      //TODO: all this clutter needs to move elsewhere
+      var kommunesDto = new List<Model.Kommune>();
+
+      foreach (var k in kommunes)
+      {
+        kommunesDto.Add(new Model.Kommune()
+                        {
+                          Id = k.Id,
+                          Name = k.Name,
+                          TaxRuleCount = k.TaxRules.Count
+                        });
+      }
+
+      return Ok(kommunesDto);
     }
 
     [HttpGet]
@@ -44,7 +50,15 @@ namespace Tax.API.Controllers
       if (kommune == null)
         return NotFound();
 
-      return Ok(JsonSerializer.Serialize(kommune, options));
+      //TODO: all this clutter needs to move elsewhere
+      var kommuneDto = new Model.Kommune
+      {
+        Id = kommune.Id,
+        Name = kommune.Name,
+        TaxRuleCount = kommune.TaxRules.Count
+      };
+
+      return Ok(kommuneDto);
     }
   }
 }
