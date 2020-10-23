@@ -33,7 +33,8 @@ namespace Tax.Producer.Controllers
         kommunesDto.Add(new Model.Kommune()
         {
           Id = k.Id,
-          Name = k.Name
+          Name = k.Name,
+          TaxRules = TransformTaxRules(k.TaxRules),
         });
       }
 
@@ -56,7 +57,27 @@ namespace Tax.Producer.Controllers
         Name = kommune.Name
       };
 
+      kommuneDto.TaxRules = TransformTaxRules(kommune.TaxRules);
+
       return Ok(kommuneDto);
+    }
+
+    private List<Model.TaxRule> TransformTaxRules(List<Entities.TaxRule> rules)
+    {
+      var result = new List<Model.TaxRule>();
+
+      foreach (var r in rules)
+      {
+        result.Add(new Model.TaxRule() { 
+          Id = r.Id,
+          Start = r.Start,
+          End = r.End,
+          Rate = r.Rate,
+          Type = r.Type
+        });
+      }
+
+      return result;
     }
   }
 }
