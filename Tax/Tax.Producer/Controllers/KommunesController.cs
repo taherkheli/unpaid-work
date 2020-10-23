@@ -23,7 +23,7 @@ namespace Tax.API.Controllers
       var kommunes = await _kommuneRepo.GetKommunesAsync();
 
       if (kommunes == null)
-        return NotFound();
+        return Ok(new List<Model.Kommune>());
 
       //TODO: all this clutter needs to move elsewhere
       var kommunesDto = new List<Model.Kommune>();
@@ -31,11 +31,11 @@ namespace Tax.API.Controllers
       foreach (var k in kommunes)
       {
         kommunesDto.Add(new Model.Kommune()
-                        {
-                          Id = k.Id,
-                          Name = k.Name,
-                          TaxRuleCount = k.TaxRules.Count
-                        });
+        {
+          Id = k.Id,
+          Name = k.Name,
+          TaxRuleCount = k.TaxRules.Count
+        });
       }
 
       return Ok(kommunesDto);
