@@ -14,5 +14,13 @@ namespace Tax.Producer.Model
     public RuleType Type { get; set; }
 
     public double Rate { get; set; }
+
+    public bool IsApplicable(DateTime d)
+    {
+      if ((d.CompareTo(Start) >= 0) && (d.CompareTo(End) <= 0))
+        return true;
+
+      return false;
+    }
   }
 }

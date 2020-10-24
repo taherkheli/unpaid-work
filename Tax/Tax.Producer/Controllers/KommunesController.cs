@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Tax.Producer.Services;
 
@@ -62,6 +63,37 @@ namespace Tax.Producer.Controllers
       return Ok(kommuneDto);
     }
 
+    [HttpPost]
+    [Route("{name}/{date}")]
+    public async Task<IActionResult> ApplicableTaxRate(string name, string date)
+    {
+      DateTime day;
+      var delimiters = new char[] { '.', '-' };
+
+      if (String.IsNullOrWhiteSpace(date) || (date.Split(delimiters).Length != 3))
+        return BadRequest();
+      else
+      {
+        var pieces = date.Split(delimiters);
+        day = new DateTime(Int32.Parse(pieces[0]), Int32.Parse(pieces[1]), Int32.Parse(pieces[2]));
+      }
+
+      var kommunes = await _kommuneRepo.GetKommunesAsync();
+      var kommune =  kommunes.FirstOrDefault(kommunes => String.Equals(name, kommunes.Name, StringComparison.OrdinalIgnoreCase));
+
+      if ((kommune == null) || (kommune.TaxRules == null))
+        return NotFound();
+
+      var kommune_BLL = new Model.Kommune
+      {
+        Id = kommune.Id,
+        Name = kommune.Name
+      };
+      kommune_BLL.TaxRules = TransformTaxRules(kommune.TaxRules);     
+
+      return Ok(kommune_BLL.Calculate(day));
+    }
+
     private List<Model.TaxRule> TransformTaxRules(List<Entities.TaxRule> rules)
     {
       var result = new List<Model.TaxRule>();
@@ -79,5 +111,6 @@ namespace Tax.Producer.Controllers
 
       return result;
     }
+
   }
 }
