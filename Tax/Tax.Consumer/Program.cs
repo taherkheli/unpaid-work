@@ -11,6 +11,7 @@ namespace Consumer
     {
 			Console.WriteLine("Intializing consumer ....");
 			var result = Consume().GetAwaiter().GetResult();
+			Console.WriteLine("Tax rate is:");
 			Console.WriteLine(result);
 			Console.ReadKey();
 		}
@@ -19,7 +20,7 @@ namespace Consumer
 		{
 			var url = "https://localhost:5001/";
 
-			var client = new HttpClient()
+      var client = new HttpClient()
 			{
 				BaseAddress = new Uri(url),
 				Timeout = TimeSpan.FromSeconds(30)
@@ -28,12 +29,11 @@ namespace Consumer
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 			Console.WriteLine("Requesting consumer ....");
-			var response = await client.GetAsync("/api/kommunes");
+			var response = await client.PostAsync("/api/kommunes/copenhagen/2016-01-01", null);
 			response.EnsureSuccessStatusCode();
 			var content = await response.Content.ReadAsStringAsync();
 
 			return content;
 		}
-
 	}
 }
